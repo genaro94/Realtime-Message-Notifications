@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('/message', ['as' =>'message', 'uses' => 'MessageController@message']);
+    Route::post('/message/submit', ['as' =>'message.submit', 'uses' => 'MessageController@create']);
+    Route::get('/send', ['as' =>'message.send', 'uses' => 'MessageController@send']);
 });
 
-Route::get('/message', ['as' =>'message', 'uses' => 'MessageController@message']);
-Route::post('/message/submit', ['as' =>'message.submit', 'uses' => 'MessageController@create']);
-Route::get('/send', ['as' =>'message.send', 'uses' => 'MessageController@send']);
 
 Auth::routes();
 

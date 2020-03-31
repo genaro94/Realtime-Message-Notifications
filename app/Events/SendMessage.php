@@ -11,16 +11,19 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 use App\Message;
+use App\User;
 
 class SendMessage implements ShouldBroadcast {
 
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private $message;
+    private $user;
 
-    public function __construct(Message $message)
+    public function __construct(Message $message, User $user)
     {
         $this->message = $message;
+        $this->user    = $user;
     }
 
     /**
@@ -28,9 +31,11 @@ class SendMessage implements ShouldBroadcast {
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
+
+    //para usuarios privado
     public function broadcastOn()
     {
-        return new Channel('message-received');
+        return new PrivateChannel('message.received.' . $this->user->id);
     }
 
     public function broadcastWith(){

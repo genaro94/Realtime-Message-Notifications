@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<example-component />
+
+<example-component user-id="{{ \Auth::user()->id }}"/>
 
 @endsection
