@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/message', ['as' =>'message', 'uses' => 'MessageController@message']);
 Route::post('/message/submit', ['as' =>'message.submit', 'uses' => 'MessageController@create']);
+Route::get('/send', ['as' =>'message.send', 'uses' => 'MessageController@send']);
 
 Auth::routes();
 
