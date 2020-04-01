@@ -34,10 +34,10 @@ export default {
         };
     },
     mounted() {
-        Echo.channel("message.received." + this.userId).listen(
+        Echo.private("message.received." + this.userId).listen(
             "SendMessage",
             e => {
-                console.log(e);
+                this.messages.push(e);
             }
         );
     }
